@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="List your plumbing or designer glass business with fixNfit.">
+    <meta name="keywords" content="list business, plumbing, designer glass, fixNfit">
+    <meta name="author" content="fixNfit">
+    <title>List Your Business - fixNfit</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Additional styles to enhance list-business.html without modifying style.css */
+        .list__business__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+        .list__business__card {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 1.5rem;
+            box-shadow: var(--neumorphic-shadow);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+            min-height: 150px;
+        }
+        .list__business__card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow), 4px 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .list__business__card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.3), transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+            z-index: -1;
+        }
+        .list__business__card__icon {
+            font-size: 2.5rem;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-glow);
+            transition: transform 0.4s ease;
+        }
+        .list__business__card:hover .list__business__card__icon {
+            transform: scale(1.2) rotate(15deg);
+        }
+        .list__business__card h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-color-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: glowText 2s ease-in-out infinite alternate;
+        }
+        .list__business__card p,
+        .list__business__card li {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            text-align: left;
+        }
+        .list__business__card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .list__business__card li::before {
+            content: '\e6b9'; /* ri-checkbox-circle-line */
+            font-family: 'remixicon';
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+        .next__button__container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav__logo">fixNfit</div>
+        <ul class="nav__links">
+            <li class="link"><a href="index.html" aria-label="Home">Home</a></li>
+            <li class="link"><a href="#" aria-label="Plumbers">Plumbers</a></li>
+            <li class="link"><a href="#" aria-label="Designer Glass">Designer Glass</a></li>
+            <li class="link"><a href="#" aria-label="Offers">Offers</a></li>
+            <li class="link"><a href="#" aria-label="Contact">Contact</a></li>
+        </ul>
+        <button class="btn" aria-label="Book Now">Book Now</button>
+    </nav>
+
+    <section class="section__container list__business__container">
+        <h1 class="section__header">List Your Business with fixNfit</h1>
+        <div class="next__button__container">
+            <button class="btn btn--primary" id="next-to-subscriptions" onclick="window.location.href='subscriptions.html'" aria-label="Go to subscriptions">Next</button>
+        </div>
+        <div class="list__business__grid">
+            <div class="list__business__card">
+                <span class="list__business__card__icon"><i class="ri-megaphone-line"></i></span>
+                <h2>Why List with Us?</h2>
+                <p>Join fixNfit to showcase your plumbing or designer glass services to a wide audience. Benefit from our platform’s visibility, seamless booking system, and dedicated support to grow your business.</p>
+            </div>
+            <div class="list__business__card">
+                <span class="list__business__card__icon"><i class="ri-checkbox-circle-line"></i></span>
+                <h2>Instructions</h2>
+                <ul>
+                    <li>Fill out the form below with accurate business and personal details.</li>
+                    <li>Ensure your services are clearly described to attract potential customers.</li>
+                    <li>Upload any certifications or portfolio images to build trust.</li>
+                    <li>Review our conditions and policies before submitting.</li>
+                </ul>
+            </div>
+            <div class="list__business__card">
+                <span class="list__business__card__icon"><i class="ri-file-text-line"></i></span>
+                <h2>Conditions and Policies</h2>
+                <ul>
+                    <li>All businesses must provide valid licenses and certifications.</li>
+                    <li>Services listed must comply with local regulations and safety standards.</li>
+                    <li>fixNfit reserves the right to review and approve listings.</li>
+                    <li>Payments for services will be processed through our secure platform.</li>
+                    <li>Any fraudulent activity will result in immediate removal from the platform.</li>
+                    <li>Businesses must respond to customer inquiries within 24 hours.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="section__container footer__container">
+            <div class="footer__col">
+                <h3>fixNfit</h3>
+                <p>Your trusted partner for home setup. We offer top-notch plumbing and designer glass sales to enhance your home.</p>
+                <p>From expert repairs to premium decorative glass, we ensure a hassle-free experience with exceptional quality.</p>
+            </div>
+            <div class="footer__col">
+                <h4>INFORMATION</h4>
+                <p><a href="index.html" aria-label="Home">Home</a></p>
+                <p><a href="#" aria-label="Plumbers">Plumbers</a></p>
+                <p><a href="#" aria-label="Designer Glass">Designer Glass</a></p>
+                <p><a href="#" aria-label="Offers">Offers</a></p>
+                <p><a href="#" aria-label="Contact">Contact</a></p>
+            </div>
+            <div class="footer__col">
+                <h4>CONTACT</h4>
+                <p><a href="#" aria-label="Support">Support</a></p>
+                <p><a href="#" aria-label="Media">Media</a></p>
+                <p><a href="#" aria-label="Socials">Socials</a></p>
+            </div>
+        </div>
+        <div class="section__container footer__bar">
+            <p>Copyright © 2025 All rights reserved.</p>
+            <div class="socials">
+                <span><i class="ri-facebook-fill" aria-label="Facebook"></i></span>
+                <span><i class="ri-twitter-fill" aria-label="Twitter"></i></span>
+                <span><i class="ri-instagram-line" aria-label="Instagram"></i></span>
+                <span><i class="ri-youtube-fill" aria-label="YouTube"></i></span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

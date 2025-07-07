@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Choose a subscription plan and list your business with fixNfit.">
+    <meta name="keywords" content="subscriptions, business listing, fixNfit">
+    <meta name="author" content="fixNfit">
+    <title>Subscriptions - fixNfit</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Additional styles for subscriptions.html without modifying style.css */
+        .subscriptions__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+            align-items: start;
+        }
+        .subscription__card {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 1.5rem;
+            box-shadow: var(--neumorphic-shadow);
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out;
+            min-height: 300px;
+        }
+        .subscription__card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-glow), 4px 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .subscription__card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(79, 70, 229, 0.3), transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+            z-index: -1;
+        }
+        .subscription__card__icon {
+            font-size: 2.5rem;
+            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-glow);
+            transition: transform 0.4s ease;
+        }
+        .subscription__card:hover .subscription__card__icon {
+            transform: scale(1.2) rotate(15deg);
+        }
+        .subscription__card h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            background: linear-gradient(45deg, var(--primary-color), var(--primary-color-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            animation: glowText 2s ease-in-out infinite alternate;
+        }
+        .subscription__card .price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+        .subscription__card ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1.5rem;
+        }
+        .subscription__card li {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            text-align: left;
+        }
+        .subscription__card li::before {
+            content: '\e6b9'; /* ri-checkbox-circle-line */
+            font-family: 'remixicon';
+            color: var(--accent-color);
+            margin-right: 0.5rem;
+        }
+        .subscription__card .btn {
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto;
+        }
+        .business__form__container {
+            display: none;
+            background: rgba(255, 255, 255, 0.15); /* Refined glassmorphism */
+            backdrop-filter: blur(12px);
+            border: 2px solid transparent;
+            border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 2.5rem;
+            max-width: 90vw;
+            width: 600px;
+            margin: 3rem auto;
+            animation: fadeInUp 0.4s ease-out;
+        }
+        .business__form__container h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            animation: glowText 2s ease-in-out infinite alternate;
+        }
+        .business__form__container h3 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--text-light);
+            margin: 1.5rem 0 1rem;
+            position: relative;
+        }
+        .business__form__container h3::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            margin: 0.5rem auto 0;
+        }
+        .form__group {
+            margin-bottom: 1.8rem;
+        }
+        .form__group label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-light);
+            margin-bottom: 0.6rem;
+            transition: color 0.3s ease;
+        }
+        .form__group input,
+        .form__group select,
+        .form__group textarea {
+            width: 100%;
+            padding: 0.9rem;
+            border: 1px solid transparent;
+            border-image: linear-gradient(135deg, var(--primary-color), var(--accent-color)) 1;
+            border-radius: 0.8rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: border-image 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form__group input:focus,
+        .form__group select:focus,
+        .form__group textarea:focus {
+            outline: none;
+            border-image: linear-gradient(135deg, var(--accent-color), var(--primary-color-dark)) 1;
+            box-shadow: 0 0 10px rgba(79, 70, 229, 0.7);
+        }
+        .form__group input[readonly] {
+            background: rgba(255, 255, 255, 0.3);
+            cursor: not-allowed;
+            border-image: linear-gradient(135deg, rgba(79, 70, 229, 0.6), rgba(236, 72, 153, 0.6)) 1;
+        }
+        .form__group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .form__group select[multiple] {
+            height: 140px;
+        }
+        .form__group .error {
+            color: #ff4d4d;
+            font-size: 0.9rem;
+            margin-top: 0.4rem;
+            background: rgba(255, 75, 75, 0.1);
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.4rem;
+            display: none;
+        }
+        .form__group input::placeholder,
+        .form__group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        .form__group input:focus::placeholder,
+        .form__group textarea:focus::placeholder {
+            transform: translateY(-2px);
+            opacity: 0.8;
+        }
+        .business__form__container .btn--primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 0.8rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s ease-in-out infinite;
+            display: block;
+            margin: 2rem auto 1rem;
+        }
+        .business__form__container .btn--primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 12px rgba(79, 70, 229, 0.7);
+        }
+        .business__form__container .btn--secondary {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--glass-border);
+            color: var(--text-light);
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 0.8rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+            display: block;
+            margin: 1rem auto;
+        }
+        .business__form__container .btn--secondary:hover {
+            background: var(--accent-color);
+            color: var(--white);
+            transform: scale(1.03);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav__logo">fixNfit</div>
+        <ul class="nav__links">
+            <li class="link"><a href="index.html" aria-label="Home">Home</a></li>
+            <li class="link"><a href="#" aria-label="Plumbers">Plumbers</a></li>
+            <li class="link"><a href="#" aria-label="Designer Glass">Designer Glass</a></li>
+            <li class="link"><a href="#" aria-label="Offers">Offers</a></li>
+            <li class="link"><a href="#" aria-label="Contact">Contact</a></li>
+        </ul>
+        <button class="btn" aria-label="Book Now">Book Now</button>
+    </nav>
+
+    <section class="section__container subscriptions__container" id="subscriptions-container">
+        <h1 class="section__header">Choose Your Subscription Plan</h1>
+        <div class="subscriptions__grid">
+            <div class="subscription__card">
+                <span class="subscription__card__icon"><i class="ri-star-line"></i></span>
+                <h2>Basic Plan</h2>
+                <div class="price">$10 / month</div>
+                <ul>
+                    <li>Business listing on fixNfit platform</li>
+                    <li>Up to 5 service listings</li>
+                    <li>Basic customer support</li>
+                    <li>Access to booking system</li>
+                </ul>
+                <button class="btn btn--primary" onclick="openFormPage('Basic Plan', '$10 / month')" aria-label="Choose Basic Plan">Choose Plan</button>
+            </div>
+            <div class="subscription__card">
+                <span class="subscription__card__icon"><i class="ri-rocket-line"></i></span>
+                <h2>Pro Plan</h2>
+                <div class="price">$25 / month</div>
+                <ul>
+                    <li>Business listing on fixNfit platform</li>
+                    <li>Up to 15 service listings</li>
+                    <li>Priority customer support</li>
+                    <li>Access to booking system</li>
+                    <li>Featured listing on homepage</li>
+                    <li>Analytics dashboard</li>
+                </ul>
+                <button class="btn btn--primary" onclick="openFormPage('Pro Plan', '$25 / month')" aria-label="Choose Pro Plan">Choose Plan</button>
+            </div>
+            <div class="subscription__card">
+                <span class="subscription__card__icon"><i class="ri-trophy-line"></i></span>
+                <h2>Premium Plan</h2>
+                <div class="price">$50 / month</div>
+                <ul>
+                    <li>Business listing on fixNfit platform</li>
+                    <li>Unlimited service listings</li>
+                    <li>24/7 premium support</li>
+                    <li>Access to booking system</li>
+                    <li>Featured listing on homepage</li>
+                    <li>Advanced analytics dashboard</li>
+                    <li>Promotional banners</li>
+                </ul>
+                <button class="btn btn--primary" onclick="openFormPage('Premium Plan', '$50 / month')" aria-label="Choose Premium Plan">Choose Plan</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section__container business__form__container" id="business-form-container">
+        <h2>Business Listing Form</h2>
+        <form id="business-listing-form" onsubmit="handleBusinessSubmit(event)">
+            <h3>Subscription Details</h3>
+            <div class="form__group">
+                <label for="subscription-plan">Selected Plan</label>
+                <input type="text" id="subscription-plan" name="subscription-plan" readonly>
+            </div>
+            <h3>Personal Details</h3>
+            <div class="form__group">
+                <label for="full-name">Full Name *</label>
+                <input type="text" id="full-name" name="full-name" required minlength="2" maxlength="100" pattern="[A-Za-z\s]+" placeholder="Enter your full name">
+                <div class="error" id="full-name-error">Please enter a valid name (2-100 characters, letters and spaces only).</div>
+            </div>
+            <div class="form__group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your email">
+                <div class="error" id="email-error">Please enter a valid email address.</div>
+            </div>
+            <div class="form__group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required pattern="\+?[1-9]\d{1,14}" placeholder="e.g., +1234567890">
+                <div class="error" id="phone-error">Please enter a valid phone number (e.g., +1234567890).</div>
+            </div>
+            <div class="form__group">
+                <label for="address">Business Address *</label>
+                <input type="text" id="address" name="address" required minlength="10" maxlength="200" placeholder="Enter your business address">
+                <div class="error" id="address-error">Please enter a valid address (10-200 characters).</div>
+            </div>
+            <div class="form__group">
+                <label for="id-document">ID Document (Optional)</label>
+                <input type="file" id="id-document" name="id-document" accept=".pdf,.jpg,.png">
+                <div class="error" id="id-document-error">Please upload a PDF, JPG, or PNG file (max 5MB).</div>
+            </div>
+            <h3>Professional Details</h3>
+            <div class="form__group">
+                <label for="business-name">Business Name *</label>
+                <input type="text" id="business-name" name="business-name" required minlength="2" maxlength="100" placeholder="Enter your business name">
+                <div class="error" id="business-name-error">Please enter a valid business name (2-100 characters).</div>
+            </div>
+            <div class="form__group">
+                <label for="service-type">Service Type *</label>
+                <select id="service-type" name="service-type" required>
+                    <option value="" disabled selected>Select service type</option>
+                    <option value="plumbing">Plumbing</option>
+                    <option value="glass">Designer Glass</option>
+                </select>
+                <div class="error" id="service-type-error">Please select a service type.</div>
+            </div>
+            <div class="form__group">
+                <label for="service-description">Service Description *</label>
+                <textarea id="service-description" name="service-description" required minlength="20" maxlength="500" placeholder="Describe your services (e.g., specialties, experience)"></textarea>
+                <div class="error" id="service-description-error">Please enter a description (20-500 characters).</div>
+            </div>
+            <div class="form__group">
+                <label for="price">Price *</label>
+                <input type="text" id="price" name="price" required pattern="\$?\d+(\.\d{2})?(\/hr)?" placeholder="e.g., $50/hr or $300">
+                <div class="error" id="price-error">Please enter a valid price (e.g., $50/hr or $300).</div>
+            </div>
+            <div class="form__group">
+                <label for="certifications">Certifications (Optional)</label>
+                <input type="file" id="certifications" name="certifications" accept=".pdf,.jpg,.png" multiple>
+                <div class="error" id="certifications-error">Please upload PDF, JPG, or PNG files (max 5MB each).</div>
+            </div>
+            <div class="form__group">
+                <label for="years-experience">Years of Experience *</label>
+                <input type="number" id="years-experience" name="years-experience" required min="0" max="50" placeholder="Enter years of experience">
+                <div class="error" id="years-experience-error">Please enter a valid number (0-50).</div>
+            </div>
+            <div class="form__group">
+                <label for="service-areas">Service Areas (Select up to 5) *</label>
+                <select id="service-areas" name="service-areas" multiple required>
+                    <option value="new-york">New York</option>
+                    <option value="los-angeles">Los Angeles</option>
+                    <option value="chicago">Chicago</option>
+                    <option value="houston">Houston</option>
+                    <option value="miami">Miami</option>
+                    <option value="san-francisco">San Francisco</option>
+                    <option value="boston">Boston</option>
+                </select>
+                <div class="error" id="service-areas-error">Please select 1-5 service areas.</div>
+            </div>
+            <div class="form__group">
+                <label for="license-number">Business License Number *</label>
+                <input type="text" id="license-number" name="license-number" required maxlength="50" pattern="[A-Za-z0-9\-]+" placeholder="Enter your license number">
+                <div class="error" id="license-number-error">Please enter a valid license number (alphanumeric, max 50 characters).</div>
+            </div>
+            <div class="form__group">
+                <label for="website">Website URL (Optional)</label>
+                <input type="url" id="website" name="website" placeholder="e.g., https://www.example.com">
+                <div class="error" id="website-error">Please enter a valid URL (e.g., https://www.example.com).</div>
+            </div>
+            <button class="btn btn--primary" type="submit" aria-label="Submit business listing">Submit Listing</button>
+            <button class="btn btn--secondary" type="button" onclick="closeFormPage()" aria-label="Back to plans">Back to Plans</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        <div class="section__container footer__container">
+            <div class="footer__col">
+                <h3>fixNfit</h3>
+                <p>Your trusted partner for home setup. We offer top-notch plumbing and designer glass sales to enhance your home.</p>
+                <p>From expert repairs to premium decorative glass, we ensure a hassle-free experience with exceptional quality.</p>
+            </div>
+            <div class="footer__col">
+                <h4>INFORMATION</h4>
+                <p><a href="index.html" aria-label="Home">Home</a></p>
+                <p><a href="#" aria-label="Plumbers">Plumbers</a></p>
+                <p><a href="#" aria-label="Designer Glass">Designer Glass</a></p>
+                <p><a href="#" aria-label="Offers">Offers</a></p>
+                <p><a href="#" aria-label="Contact">Contact</a></p>
+            </div>
+            <div class="footer__col">
+                <h4>CONTACT</h4>
+                <p><a href="#" aria-label="Support">Support</a></p>
+                <p><a href="#" aria-label="Media">Media</a></p>
+                <p><a href="#" aria-label="Socials">Socials</a></p>
+            </div>
+        </div>
+        <div class="section__container footer__bar">
+            <p>Copyright © 2025 All rights reserved.</p>
+            <div class="socials">
+                <span><i class="ri-facebook-fill" aria-label="Facebook"></i></span>
+                <span><i class="ri-twitter-fill" aria-label="Twitter"></i></span>
+                <span><i class="ri-instagram-line" aria-label="Instagram"></i></span>
+                <span><i class="ri-youtube-fill" aria-label="YouTube"></i></span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
